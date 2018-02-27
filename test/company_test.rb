@@ -19,7 +19,27 @@ class CompanyTest < Minitest::Test
     company = Company.new
     company.load_employees('./data/employees.csv')
 
-    assert_instance_of Employee, company.employees.first
-    require "pry"; binding.pry
+    assert_instance_of Hash, company.employees.first
+  end
+
+  def test_doesnt_load_bad_employee_file
+    company = Company.new
+    result = company.load_employees('./data/bad_employees.csv')
+
+    assert_equal 'Error: bad file', result
+  end
+
+  def test_load_projects
+    company = Company.new
+    company.load_projects('./data/projects.csv')
+
+    assert_instance_of Hash, company.projects.first
+  end
+
+  def test_doesnt_load_bad_project_file
+    company = Company.new
+    result = company.load_projects('./data/projects.csv')
+
+    assert_equal 'Error: bad file', result
   end
 end
