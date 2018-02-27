@@ -11,6 +11,7 @@ class Company
   end
 
   def load_employees(filepath)
+    employee_csv_parse(filepath)
     rows = []
     CSV.foreach(filepath) do |row|
       rows << row.length
@@ -44,5 +45,13 @@ class Company
     end
     return { success: false, error: 'bad data' } if result.include?(false)
     { success: true, error: nil }
+  end
+
+  def employee_csv_parse(filepath)
+    if load_employees[:success] == true
+      CSV.foreach(filepath) do |row|
+        @employees << Employee.new(row[0], row[1], row[2], row[3], row[4])
+      end
+    end
   end
 end
