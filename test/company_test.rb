@@ -17,7 +17,9 @@ class CompanyTest < Minitest::Test
 
   def test_load_employees
     company = Company.new
-    company.load_employees
-    assert_instance_of Hash, company.employees.first
+    company.load_employees('./data/employees.csv')
+
+    assert_instance_of Employee, company.employees.first
+    require "pry"; binding.pry
   end
 end
