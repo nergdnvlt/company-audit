@@ -17,30 +17,43 @@ class CompanyTest < Minitest::Test
 
   def test_load_employees
     company = Company.new
-    company.load_employees('./data/employees.csv')
+    result = company.load_employees('./data/employees.csv')
 
-    assert_instance_of Hash, company.load_employees
-    print company.load_employees
+    assert_instance_of Hash, result
   end
 
-  # def test_doesnt_load_bad_employee_file
-  #   company = Company.new
-  #   result = company.load_employees('./data/bad_employees.csv')
-  #
-  #   assert_equal 'Error: bad file', result
-  # end
+  def test_doesnt_load_bad_employee_file
+    company = Company.new
+    result = company.load_employees('./data/bad_employees.csv')
 
-  # def test_load_projects
-  #   company = Company.new
-  #   company.load_projects('./data/projects.csv')
-  #
-  #   assert_instance_of Hash, company.projects.first
-  # end
-  #
-  # def test_doesnt_load_bad_project_file
-  #   company = Company.new
-  #   result = company.load_projects('./data/bad_projects.csv')
-  #
-  #   assert_equal 'Error: bad file', result
-  # end
+    assert_instance_of Hash, result
+  end
+
+  def test_load_projects
+    company = Company.new
+    result = company.load_projects('./data/projects.csv')
+
+    assert_instance_of Hash, result
+  end
+
+  def test_doesnt_load_bad_project_file
+    company = Company.new
+    result = company.load_projects('./data/bad_projects.csv')
+
+    assert_instance_of Hash, result
+  end
+
+  def test_load_timesheets
+    company = Company.new
+    result = company.timesheets('./data/good_timesheets.csv')
+
+    assert_instance_of Hash, result
+  end
+
+  def test_doesnt_load_bad_timesheet_file
+    company = Company.new
+    result = company.load_projects('./data/bad_timesheets.csv')
+
+    assert_instance_of Hash, result
+  end
 end
