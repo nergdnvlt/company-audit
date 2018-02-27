@@ -12,43 +12,55 @@ class Company
   end
 
   def load_employees(filepath)
-    rows = []
-    CSV.foreach(filepath) do |row|
-      rows << row.length
-    end
-    result = rows.map do |num|
-      num == 5
-    end
+    result = check_employee_row_length(filepath)
     return { success: false, error: 'bad data' } if result.include?(false)
     result = { success: true, error: nil }
     employee_csv_parse(filepath)
     result
   end
 
-  def load_projects(filepath)
+  def check_employee_row_length(filepath)
     rows = []
     CSV.foreach(filepath) do |row|
       rows << row.length
     end
-    result = rows.map do |num|
-      num == 4
+    rows.map do |num|
+      num == 5
     end
+  end
+
+  def load_projects(filepath)
+    result = check_project_row_length(filepath)
     return { success: false, error: 'bad data' } if result.include?(false)
     result = { success: true, error: nil }
     project_csv_parse(filepath)
     result
   end
 
-  def load_timesheets(filepath)
+  def check_project_row_length(filepath)
     rows = []
     CSV.foreach(filepath) do |row|
       rows << row.length
     end
-    result = rows.map do |num|
+    rows.map do |num|
       num == 4
     end
+  end
+
+  def load_timesheets(filepath)
+    result = check_timesheet_row_length(filepath)
     return { success: false, error: 'bad data' } if result.include?(false)
     { success: true, error: nil }
+  end
+
+  def check_timesheet_row_length(filepath)
+    rows = []
+    CSV.foreach(filepath) do |row|
+      rows << row.length
+    end
+    rows.map do |num|
+      num == 4
+    end
   end
 
   def employee_csv_parse(filepath)
